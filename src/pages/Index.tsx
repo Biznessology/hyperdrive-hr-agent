@@ -192,6 +192,16 @@ const Index = () => {
     setActiveStep(prev => (prev < SOLUTION_FLOW.length ? prev + 1 : prev));
   };
 
+  // Create an animation effect where the active step pulses and glows
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const nextStep = activeStep < SOLUTION_FLOW.length ? activeStep + 1 : 1;
+      setActiveStep(nextStep);
+    }, 5000); // Auto-advance every 5 seconds
+    
+    return () => clearInterval(interval);
+  }, [activeStep]);
+
   return (
     <FuturisticBackground>
       <div className="container mx-auto px-4 py-12">
@@ -311,53 +321,58 @@ const Index = () => {
           />
           
           {activeTab === 'solution' ? (
-            <div className="flex flex-col lg:flex-row gap-8">
-              <div className="lg:w-2/3">
-                <FuturisticCard className="h-full overflow-auto" glowEffect>
-                  <div className="p-4">
+            <div>
+              <FuturisticCard className="overflow-hidden" glowEffect>
+                {/* Creative Process Flow Visualization */}
+                <div className="relative">
+                  {/* Animated background elements */}
+                  <div className="absolute inset-0 opacity-20">
+                    <div className="absolute top-10 right-10 w-40 h-40 rounded-full bg-futuristic-primary/30 filter blur-3xl animate-pulse"></div>
+                    <div className="absolute bottom-10 left-20 w-60 h-60 rounded-full bg-futuristic-accent/20 filter blur-3xl" 
+                         style={{ animationDelay: '2s', animationDuration: '8s' }}></div>
+                  </div>
+                  
+                  {/* Main process flow */}
+                  <div className="relative z-10 p-8">
+                    <div className="flex justify-between items-center mb-6">
+                      <h3 className="text-2xl font-bold text-futuristic-primary">
+                        AI-Powered Recruitment Pipeline
+                      </h3>
+                      <div className="flex gap-2 items-center">
+                        <div className="h-2 w-2 rounded-full bg-futuristic-success"></div>
+                        <span className="text-futuristic-success text-sm">Active</span>
+                      </div>
+                    </div>
+                    
                     <ProcessFlow 
                       steps={SOLUTION_FLOW} 
                       activeStep={activeStep}
                       onStepClick={(step) => setActiveStep(step.id)}
+                      className="max-h-[500px] overflow-y-auto pr-4 pb-4 custom-scrollbar"
                     />
-                  </div>
-                </FuturisticCard>
-              </div>
-              
-              <div className="lg:w-1/3">
-                <FuturisticCard title="Current Step Details" className="h-full" glowEffect>
-                  <div className="flex justify-center mb-6">
-                    <HexagonIcon 
-                      size="lg"
-                      icon={SOLUTION_FLOW[activeStep - 1]?.icon || <Database size={24} />}
-                      status="active"
-                      pulse
-                    />
-                  </div>
-                  
-                  <h3 className="text-xl font-bold text-futuristic-primary mb-4 text-center">
-                    {SOLUTION_FLOW[activeStep - 1]?.title}
-                  </h3>
-                  
-                  <p className="text-muted-foreground mb-6">
-                    {SOLUTION_FLOW[activeStep - 1]?.description}
-                  </p>
-                  
-                  <div className="flex justify-center mt-8">
-                    <button 
-                      onClick={handleNextStep} 
-                      className="py-2 px-6 bg-futuristic-primary/20 border border-futuristic-primary text-futuristic-primary rounded-md hover:bg-futuristic-primary/30 transition-colors flex items-center gap-2"
-                    >
-                      Next Step
-                      <div className="relative w-5 h-5 animate-pulse">
-                        <div className="absolute inset-0 rounded-full bg-futuristic-primary opacity-20"></div>
-                        <div className="absolute inset-1 rounded-full bg-futuristic-primary opacity-40"></div>
-                        <div className="absolute inset-2 rounded-full bg-futuristic-primary"></div>
+                    
+                    <div className="flex justify-center mt-8">
+                      <div className="bg-futuristic-primary/10 border border-futuristic-primary/30 rounded-lg p-4 max-w-md">
+                        <div className="flex items-start gap-4">
+                          <div className="mt-1">
+                            <div className="p-2 bg-futuristic-primary/20 rounded-full">
+                              {SOLUTION_FLOW[activeStep - 1]?.icon || <Database size={24} />}
+                            </div>
+                          </div>
+                          <div>
+                            <h4 className="text-xl font-bold text-futuristic-primary mb-2">
+                              {SOLUTION_FLOW[activeStep - 1]?.title || "Agent"}
+                            </h4>
+                            <p className="text-sm text-muted-foreground">
+                              {SOLUTION_FLOW[activeStep - 1]?.description || "Description"}
+                            </p>
+                          </div>
+                        </div>
                       </div>
-                    </button>
+                    </div>
                   </div>
-                </FuturisticCard>
-              </div>
+                </div>
+              </FuturisticCard>
             </div>
           ) : (
             <FuturisticCard glowEffect>
