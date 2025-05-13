@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { 
   User, 
@@ -332,7 +331,7 @@ const Index = () => {
                          style={{ animationDelay: '2s', animationDuration: '8s' }}></div>
                   </div>
                   
-                  {/* Main process flow */}
+                  {/* Main process flow - removed the scrolling classes */}
                   <div className="relative z-10 p-8">
                     <div className="flex justify-between items-center mb-6">
                       <h3 className="text-2xl font-bold text-futuristic-primary">
@@ -348,7 +347,6 @@ const Index = () => {
                       steps={SOLUTION_FLOW} 
                       activeStep={activeStep}
                       onStepClick={(step) => setActiveStep(step.id)}
-                      className="max-h-[500px] overflow-y-auto pr-4 pb-4 custom-scrollbar"
                     />
                     
                     <div className="flex justify-center mt-8">
