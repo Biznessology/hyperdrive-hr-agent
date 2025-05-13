@@ -33,77 +33,77 @@ const SOLUTION_FLOW = [
     title: "Resume Ingestion Agent",
     description: "RPA bots scan configured portals, email inboxes, and job-post URLs to download new resumes automatically.",
     icon: <FileText size={18} />,
-    status: 'completed'
+    status: 'completed' as const
   },
   {
     id: 2,
     title: "Resume Parsing & Matching Agent",
     description: "AI extracts structured fields (experience, skills, education) and computes a matching score versus the job description.",
     icon: <Search size={18} />,
-    status: 'completed'
+    status: 'completed' as const
   },
   {
     id: 3,
     title: "Data Entry Agent",
     description: "High-confidence parsed data is auto-populated into the ATS; low-confidence fields flagged for human validation.",
     icon: <Database size={18} />,
-    status: 'completed'
+    status: 'completed' as const
   },
   {
     id: 4,
     title: "Question Suggestion Agent",
     description: "Based on candidate profile and role type, AI proposes tailored screening questions for the HR initial call.",
     icon: <Book size={18} />,
-    status: 'default'
+    status: 'default' as const
   },
   {
     id: 5,
     title: "AI HR Calling Agent",
     description: "Conversational AI conducts the initial voice/video call to collect background details and basic assessments.",
     icon: <User size={18} />,
-    status: 'default'
+    status: 'default' as const
   },
   {
     id: 6,
     title: "Transcript Analysis Agent",
     description: "NLP analyzes the call transcript; applies scoring rules to either reject or advance the candidate.",
     icon: <FileCheck size={18} />,
-    status: 'default'
+    status: 'default' as const
   },
   {
     id: 7,
     title: "Internal Talent Matching Agent",
     description: "AI searches existing employee profiles for internal candidates matching open roles; suggests to HR.",
     icon: <Users size={18} />,
-    status: 'default'
+    status: 'default' as const
   },
   {
     id: 8,
     title: "Interview Scheduling Agent",
     description: "Upon selection of HR or internal interviewer, RPA schedules the technical interview, syncing calendars.",
     icon: <CalendarCheckIcon size={18} />,
-    status: 'default'
+    status: 'default' as const
   },
   {
     id: 9,
     title: "Interviewer Assistant Agent",
     description: "Provides customized question prompts and candidate insights to the technical interviewer just before the call.",
     icon: <UserCheck size={18} />,
-    status: 'default'
+    status: 'default' as const
   },
   {
     id: 10,
     title: "Offer/Rejection Agent",
     description: "Generates offer letters or rejection emails; sends via RPA with human-in-the-loop approval.",
     icon: <CheckCheck size={18} />,
-    status: 'default'
+    status: 'default' as const
   },
   {
     id: 11,
     title: "Reporting & Dashboarding Agent",
     description: "Aggregates metrics daily/weekly and updates a live dashboard.",
     icon: <BarChart size={18} />,
-    status: 'default'
+    status: 'default' as const
   }
 ];
 
@@ -111,32 +111,57 @@ const COMPARISON_DATA = [
   {
     process: "Resume Collection",
     asIs: "Manual download from multiple sources",
-    toBe: "Automated ingestion from all sources",
-    improvement: "85% time reduction"
+    toBe: "Automated ingestion from all sources"
   },
   {
     process: "Screening",
     asIs: "Manual reading and scoring",
-    toBe: "AI-driven scoring and ranking",
-    improvement: "90% time reduction"
+    toBe: "AI-driven scoring and ranking"
   },
   {
     process: "Data Entry",
     asIs: "Manual entry into ATS fields",
-    toBe: "Automated data extraction and entry",
-    improvement: "95% time reduction"
+    toBe: "Automated data extraction and entry"
   },
   {
     process: "Question Prep",
     asIs: "Generic templates or ad-hoc",
-    toBe: "Dynamic, role-specific question generation",
-    improvement: "70% quality improvement"
+    toBe: "Dynamic, role-specific question generation"
   },
   {
     process: "Initial Call",
     asIs: "HR conducts call with manual notes",
-    toBe: "AI agent conducts structured call",
-    improvement: "80% time saving"
+    toBe: "AI agent conducts structured call"
+  },
+  {
+    process: "Evaluation",
+    asIs: "Manual review of notes/resumes",
+    toBe: "NLP analysis with scoring algorithm"
+  },
+  {
+    process: "Internal Search",
+    asIs: "Separate process or overlooked",
+    toBe: "Automatic matching with employee profiles"
+  },
+  {
+    process: "Scheduling",
+    asIs: "Email threads and manual invites",
+    toBe: "Automated calendar syncing and invitations"
+  },
+  {
+    process: "Interviewer Prep",
+    asIs: "Self-directed research on candidate",
+    toBe: "AI-generated briefing pack and questions"
+  },
+  {
+    process: "Communications",
+    asIs: "Manual email drafting and sending",
+    toBe: "Auto-generated with one-click approval"
+  },
+  {
+    process: "Analytics",
+    asIs: "Manual reports from multiple systems",
+    toBe: "Real-time dashboards with AI insights"
   }
 ];
 
@@ -318,30 +343,19 @@ const Index = () => {
                     {SOLUTION_FLOW[activeStep - 1]?.description}
                   </p>
                   
-                  <div className="space-y-4">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">Implementation Complexity</span>
-                      <span className="text-futuristic-primary">Medium</span>
-                    </div>
-                    <div className="w-full bg-muted rounded-full h-1.5">
-                      <div className="bg-futuristic-primary h-1.5 rounded-full w-1/2" />
-                    </div>
-                    
-                    <div className="flex justify-between text-sm">
-                      <span className="text-muted-foreground">ROI Impact</span>
-                      <span className="text-futuristic-success">High</span>
-                    </div>
-                    <div className="w-full bg-muted rounded-full h-1.5">
-                      <div className="bg-futuristic-success h-1.5 rounded-full w-3/4" />
-                    </div>
+                  <div className="flex justify-center mt-8">
+                    <button 
+                      onClick={handleNextStep} 
+                      className="py-2 px-6 bg-futuristic-primary/20 border border-futuristic-primary text-futuristic-primary rounded-md hover:bg-futuristic-primary/30 transition-colors flex items-center gap-2"
+                    >
+                      Next Step
+                      <div className="relative w-5 h-5 animate-pulse">
+                        <div className="absolute inset-0 rounded-full bg-futuristic-primary opacity-20"></div>
+                        <div className="absolute inset-1 rounded-full bg-futuristic-primary opacity-40"></div>
+                        <div className="absolute inset-2 rounded-full bg-futuristic-primary"></div>
+                      </div>
+                    </button>
                   </div>
-                  
-                  <button 
-                    onClick={handleNextStep} 
-                    className="mt-8 w-full py-2 px-4 bg-futuristic-primary/20 border border-futuristic-primary text-futuristic-primary rounded-md hover:bg-futuristic-primary/30 transition-colors"
-                  >
-                    Next Step
-                  </button>
                 </FuturisticCard>
               </div>
             </div>
