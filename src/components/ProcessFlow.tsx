@@ -1,5 +1,6 @@
 
 import React, { useState, useEffect } from 'react';
+import { Check } from "lucide-react";
 import { cn } from "@/lib/utils";
 import FuturisticCard from './FuturisticCard';
 
